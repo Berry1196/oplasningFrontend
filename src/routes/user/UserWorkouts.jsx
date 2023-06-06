@@ -18,9 +18,9 @@ export default function Workouts({ username }) {
     setInput(e.target.value);
   }
 
-  useEffect(() => {
-    facade.fetchWorkoutsByUsername(username).then((data) => setUserWorkouts(data));
-  }, [selectedWorkout]);
+  // useEffect(() => {
+  // facade.fetchWorkoutsByUsername(username).then((data) => setUserWorkouts(data));
+  //}, [selectedWorkout]);
 
   function handleSubmit(e) {
     e.preventDefault();

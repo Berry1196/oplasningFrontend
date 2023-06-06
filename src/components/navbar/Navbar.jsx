@@ -23,10 +23,13 @@ export default function Navbar({ username, role }) {
           { name: "Dashboard", href: "/", current: location.pathname === "/" },
           { name: "Exercises", href: "/exercises", current: location.pathname === "/exercises" },
           { name: "Workouts", href: "/workouts", current: location.pathname === "/workouts" },
+          { name: "Boats", href: "/boats", current: location.pathname === "/boats" },
         ]);
       } else if (role === "user") {
         setNavigation([
           { name: "Dashboard", href: "/", current: location.pathname === "/" },
+          { name: "Boats", href: "/boats", current: location.pathname === "/boats" },
+          { name: "Specific boat", href: "/specificBoat", current: location.pathname === "/boats/specificBoat" },
           { name: "Workouts", href: "/workouts", current: location.pathname === "/workouts" },
           { name: "Activity", href: "/activity", current: location.pathname === "/activity" },
         ]);

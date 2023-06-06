@@ -1,4 +1,4 @@
-const WEB_URL = "https://staudal.org/workout/api/";
+const WEB_URL = "http://localhost:8080/api/";
 
 function apiFacade() {
   const setToken = (token) => {
@@ -66,6 +66,67 @@ function apiFacade() {
     return res;
   }
 
+  //Get owners
+  async function getOwners() {
+    const options = makeOptions("GET", true);
+    const data = await fetch(WEB_URL + "owner", options);
+    const res = await data.json();
+    return res;
+  }
+
+  //Create owner
+  async function createOwner(owner) {
+    const options = makeOptions("POST", true, owner);
+    const data = await fetch(WEB_URL + "owner", options);
+    const res = await data.json();
+    return res;
+  }
+
+  //Delete boat
+  async function deleteBoat(id) {
+    const options = makeOptions("DELETE", true);
+    const data = await fetch(WEB_URL + "boat/" + id, options);
+    const res = await data.json();
+    return res;
+  }
+
+  //Fetch Boats
+  async function fetchAllBoats() {
+    const options = makeOptions("GET", true);
+    const data = await fetch(WEB_URL + "boat", options);
+    return data.json();
+  }
+
+  //Create boat
+  async function createBoat(boat) {
+    const options = makeOptions("POST", true, boat);
+    const data = await fetch(WEB_URL + "boat", options);
+    const res = await data.json();
+    return res;
+  }
+
+  //Fetch harbour
+  async function fetchHarbour() {
+    const options = makeOptions("GET", true);
+    const data = await fetch(WEB_URL + "harbour", options);
+    return data.json();
+  }
+
+  // Add boat to harbour
+  async function addBoatToHarbour(boat_id, harbour_id) {
+    const options = makeOptions("PUT", true, {id: boat_id, harbour_id });
+    const data = await fetch(
+      WEB_URL + "boat", options);
+    const res = await data.json();
+    return res;
+  }
+
+
+
+
+    
+
+
   // add workout to user
   async function linkWorkoutToUser(username, workout) {
     const options = makeOptions("POST", true, workout);
@@ -89,23 +150,6 @@ function apiFacade() {
     return res;
   }
 
-  // create muscle photo
-  async function generatePhoto(muscles) {
-    // Rename muscle groups
-    if (muscles.includes("hamstrings")) {
-      muscles = muscles.replace("hamstrings", "hamstring");
-    }
-
-    const data = await fetch(WEB_URL + "workouts/photo", {
-      method: "POST",
-      body: muscles,
-    });
-    const blob = await data.blob();
-    const imageFile = new Blob([blob]);
-    const imageUrl = URL.createObjectURL(imageFile);
-    return imageUrl;
-  }
-
   // fetch data and catch possible errors
   async function fetchAdminData() {
     const options = makeOptions("GET", true);
@@ -124,23 +168,6 @@ function apiFacade() {
     return data.json();
   }
 
-  async function fetchWorkout(muscle) {
-    const options = makeOptions("GET", true);
-    const data = await fetch(WEB_URL + "workouts/" + muscle, options);
-    return data.json();
-  }
-
-  async function fetchWorkouts() {
-    const options = makeOptions("GET", true);
-    const data = await fetch(WEB_URL + "workouts", options);
-    return data.json();
-  }
-
-  async function fetchWorkoutsByUsername(username) {
-    const options = makeOptions("GET", true);
-    const data = await fetch(WEB_URL + "workouts/user/" + username, options);
-    return data.json();
-  }
 
   async function deleteWorkoutFromUser(username, id) {
     const options = makeOptions("DELETE", true);
@@ -151,12 +178,6 @@ function apiFacade() {
   async function fetchExerciseByName(name) {
     const options = makeOptions("GET", true);
     const data = await fetch(WEB_URL + "exercises/" + name, options);
-    return data.json();
-  }
-
-  async function createExerciseStatus(exerciseStatus) {
-    const options = makeOptions("POST", true, exerciseStatus);
-    const data = await fetch(WEB_URL + "exercisestatus", options);
     return data.json();
   }
 
@@ -193,6 +214,8 @@ function apiFacade() {
         .join("")
     );
 
+    
+
     return JSON.parse(jsonPayload);
   }
   return {
@@ -206,21 +229,23 @@ function apiFacade() {
     fetchUserData,
     readJwtToken,
     fetchData,
-    fetchWorkout,
     createUser,
-    generatePhoto,
-    fetchWorkouts,
     linkWorkoutToUser,
     createExercise,
     deleteExercise,
     getExercises,
     createWorkout,
-    fetchWorkoutsByUsername,
     linkExerciseToWorkout,
     fetchExerciseByName,
     deleteWorkout,
     deleteWorkoutFromUser,
-    createExerciseStatus,
+    getOwners,
+    createOwner,
+    deleteBoat,
+    fetchAllBoats,
+    fetchHarbour,
+    createBoat,
+    addBoatToHarbour,
   };
 }
 const facade = apiFacade();

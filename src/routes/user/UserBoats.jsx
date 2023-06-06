@@ -1,11 +1,30 @@
-import { Fragment, useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import facade from "../../ApiFacade";
+import { useLocation } from "react-router-dom";
+import { Fragment } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
+import facade from "../../ApiFacade";
+import { Dialog, Transition } from "@headlessui/react";
+import { CheckBadgeIcon } from "@heroicons/react/24/outline";
 
-export default function AdminHome() {
-  const [owner, setOwner] = useState([]);
+export default function UserBoats() {
+  const [boats, setBoats] = useState([]);
+
+  //handle delete
+  function handleDelete(id) {
+    facade.deleteBoat(id);
+  }
+
+  function handleChange(e) {
+    setInput(e.target.value);
+  }
 
   useEffect(() => {
-    facade.getOwners().then((data) => setOwner(data));
+    facade.fetchAllBoats().then((data) => {
+      console.log(data);
+      setBoats(data);
+    });
   }, []);
 
   return (
@@ -35,13 +54,13 @@ export default function AdminHome() {
                       Name
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Title
+                      Brand
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Email
+                      Make
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Role
+                      Harbour
                     </th>
                     <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                       <span className="sr-only">Edit</span>
@@ -49,14 +68,15 @@ export default function AdminHome() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {owner.map((owners) => (
-                    <tr key={owners.id}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{owners.name}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{owners.address}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{owners.phone}</td>
+                  {boats.map((boat) => (
+                    <tr key={boat.id}>
+                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{boat.id}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{boat.brand}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{boat.make}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{boat.harbour}</td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                         <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                          Edit<span className="sr-only">, {owners.name}</span>
+                          Edit<span className="sr-only"></span>
                         </a>
                       </td>
                     </tr>
