@@ -82,6 +82,9 @@ function apiFacade() {
     return res;
   }
 
+ 
+            
+
   //Delete boat
   async function deleteBoat(id) {
     const options = makeOptions("DELETE", true);
@@ -120,6 +123,65 @@ function apiFacade() {
     const res = await data.json();
     return res;
   }
+
+  //Edit boat
+  async function editBoat(boat_id, boat) {
+    const data = null;
+    fetch('http://localhost:8080/api/boat/edit', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              //  id: boat.id,
+              //harbour_id: boat.harbour_id,
+                brand: boat.brand,
+                make: boat.make,
+                image: boat.image,
+                id: boat_id,
+            })
+        })
+            .then(response => response.json())
+            .then(data1 => {
+                
+                data = data1;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        alert("Boat edited");
+    
+    return  data.json();
+  }
+
+   //Edit owner
+   async function editOwner(owner_id, owner) {
+    const data = null;
+    fetch( WEB_URL +"owner/edit", {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: owner_id,
+                name: owner.name,
+                address: owner.address,
+                phone: owner.phone,
+                
+            })
+        })
+            .then(response => response.json())
+            .then(data1 => {
+              data = data1;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        alert("Owner edited");
+          
+    return data.json();
+  }
+
 
 
 
@@ -246,6 +308,8 @@ function apiFacade() {
     fetchHarbour,
     createBoat,
     addBoatToHarbour,
+    editBoat,
+    editOwner,
   };
 }
 const facade = apiFacade();
