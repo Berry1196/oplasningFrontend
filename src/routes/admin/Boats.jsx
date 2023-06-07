@@ -20,8 +20,6 @@ export default function Boats() {
   });
   const [selectedHarbour, setSelectedHarbour] = useState(null);
   const [selectedBoat, setSelectedBoat] = useState(null);
-
-  const [searchHarbourInput, setSearchHarbourInput] = useState([]);
   const [harbours, setHarbours] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [modalOpener, setModalOpener] = useState(false);
@@ -158,6 +156,16 @@ export default function Boats() {
                           Edit
                           <span className="sr-only">, {boat.name}</span>
                         </a>
+                      </td>
+                      <td>
+                        <button
+                          onClick={() => {
+                            handleDelete(boat.id);
+                          }}
+                          className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))}
