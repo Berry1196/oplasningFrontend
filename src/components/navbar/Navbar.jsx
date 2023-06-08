@@ -24,6 +24,7 @@ export default function Navbar({ username, role }) {
           { name: "Exercises", href: "/exercises", current: location.pathname === "/exercises" },
           { name: "Workouts", href: "/workouts", current: location.pathname === "/workouts" },
           { name: "Boats", href: "/boats", current: location.pathname === "/boats" },
+          { name: "Harbours", href: "/harbours", current: location.pathname === "/harbours" },
         ]);
       } else if (role === "user") {
         setNavigation([

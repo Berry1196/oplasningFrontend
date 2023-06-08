@@ -29,19 +29,20 @@ export default function AdminHome() {
   function handleSubmit(e) {
     e.preventDefault();
     facade.createOwner(owner);
+    setOpen(false);
   }
 
   //Edits a owner
   function handleEditSubmit(e) {
     e.preventDefault();
     facade.editOwner(selectedOwner.id, owner);
-    setEditOpen(false);
   }
 
   //Click edit button
   function handleEditClick(e) {
     setEditOpen(true);
     setSelectedOwner(e);
+    console.log(e);
   }
 
   return (
@@ -84,13 +85,13 @@ export default function AdminHome() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {owners.map((owners) => (
-                    <tr key={owners.id}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{owners.name}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{owners.address}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{owners.phone}</td>
+                  {owners.map((ownerss) => (
+                    <tr key={ownerss.id}>
+                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{ownerss.name}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ownerss.address}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ownerss.phone}</td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                        <button onClick={() => handleEditClick(owner)}>Edit</button>
+                        <button onClick={() => handleEditClick(ownerss)}>Edit</button>
                       </td>
                     </tr>
                   ))}

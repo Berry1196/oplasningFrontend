@@ -19,6 +19,7 @@ import Activity from "./routes/user/UserActivity";
 import PageNotFound from "./routes/guest/PageNotFound";
 import Boats from "./routes/admin/Boats";
 import BoatSearch from "./routes/user/BoatSearch";
+import AdminHarbour from "./routes/admin/AdminHarbour";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -40,6 +41,7 @@ function App() {
       <Route path="/workouts" element={<AdminWorkouts />} />
       <Route path="/exercises" element={<AdminExercises />} />
       <Route path="/boats" element={<Boats />} />
+      <Route path="/harbours" element={<AdminHarbour />} />
     </Fragment>
   );
 
